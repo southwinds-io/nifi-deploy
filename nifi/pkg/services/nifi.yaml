@@ -1,0 +1,26 @@
+---
+# this file defines the configuration required by the Apache NiFi service
+# it is technology-agnostic, that is, it is not written for a specific container orchestration technology
+
+# the name of the service
+name: nifi
+# a brief description for any operator to know what the service is about
+description: |
+  Apache NiFi automate the flow of data between software systems
+port:
+  ui: "8080"
+# a list of variables that are required by the service to work
+var:
+  - name: SINGLE_USER_CREDENTIALS_USERNAME
+    description: the username of the single user to authenticate with Apache NiFi
+    export: true
+    # note the value below is dynamically calculated by artisan using a binding expression
+    value: "${fx=name:9999}"
+  - name: SINGLE_USER_CREDENTIALS_PASSWORD
+    description: the password of the single user to authenticate with Apache NiFi
+    secret: true
+    export: true
+    # the function expressions instructs artisan to generate a 16 character long password and the false flag prevents the
+    # addition of special characters to the password
+    value: ${fx=pwd:16,false}
+...

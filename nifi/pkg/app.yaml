@@ -1,0 +1,41 @@
+---
+# this file is the microservice application manifest for Apache NiFi
+# its role is to aggregate all services required to make Apache NiFi work
+
+# the name of the application
+name: nifi
+# a description for the application
+description: deployment for Apache Nifi application
+# the application version, which should match the containing version folder name
+version: 1.23.2
+# one or more deployment profiles.
+# profiles instruct artisan which services should be deployed
+# you can define multiple profiles which contain a different combination of services
+profiles:
+  # in this case we only need a single profile that uses the Apache NiFi services
+  - name: default
+    description: deploys the Apache NiFi
+    services:
+      - name: nifi
+
+# this is a list of services used by the profiles
+# the services add specific configuration not specified in the service manifests
+# this information is specified as behaviours under the "is" attribute
+services:
+  - name: nifi
+    description: Apache NiFi service
+    uri: ./services/nifi.yaml
+    image: IMG_NIFI
+    port:
+      ui: "8080"
+    # defines the public behaviour which instructs the artisan K transpiler to generate an ingress for the service
+    # so that it can be accessed from outside the cluster
+    is:
+      public:
+        - port: ui
+          path: /
+          domain: nifi.${DOMAIN}{{if exists "CERT_ISSUER"}}
+          ingress: traefik
+          certManIssuer: ${CERT_ISSUER}
+          redirectHTTPS: yes{{end}}
+...

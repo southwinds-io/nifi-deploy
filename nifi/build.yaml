@@ -1,0 +1,19 @@
+---
+profiles:
+  - name: nifi
+    description: configuration for the Apache NiFi installer package build
+    author: SouthWinds Tech Ltd
+    license: EULA
+    labels:
+      platform: linux
+      arch: any
+    type: exec
+    target: ./pkg
+
+functions:
+  - name: build-installer
+    description: |
+      builds the Apache NiFi installer package
+    run:
+      - art build -t nifi/installer:${PRODUCT_VERSION} -p nifi
+...

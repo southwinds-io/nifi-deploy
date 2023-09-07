@@ -1,0 +1,13 @@
+---
+# this release specification is used to deploy the application to Kubernetes
+name: NiFi
+description: |
+  deploys Apache NiFi on Kubernetes
+author: SouthWinds Tech Ltd
+license: Apache 2.0
+version: "1.23.2"
+info: |
+  Apache NiFi 1.23.2
+
+images:
+  IMG_NIFI: ${IMG_REG_URI}/${PROD_VER}/nifi:1.23.2-${ART_ARCH}

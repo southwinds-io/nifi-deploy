@@ -1,0 +1,19 @@
+---
+# this file automates the retrieval of docker images from public registries, re-tagging and pushing to a private registry
+# it also separates images by architecture and assign a different tag to them
+# NOTE: this script requires docker
+env:
+  TGT_REGISTRY: registry.southwinds.io
+  PROD_VER: nifi-1.23.2
+  ARM_TAG: arm64
+  AMD_TAG: amd64
+
+  NIFI_VER: 1.23.2
+
+functions:
+  - name: prep-images
+    run:
+      # apache nifi
+      - art ctr image copy --platform linux/arm64 apache/nifi:${NIFI_VER} ${TGT_REGISTRY}/${PROD_VER}/nifi:${NIFI_VER}-${ARM_TAG}
+      - art ctr image copy --platform linux/amd64 apache/nifi:${NIFI_VER} ${TGT_REGISTRY}/${PROD_VER}/nifi:${NIFI_VER}-${AMD_TAG}
+...

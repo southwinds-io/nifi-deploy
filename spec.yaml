@@ -1,0 +1,15 @@
+name: ApacheNiFi
+description: |
+  deploys Apache Nifi on Kubernetes
+author: SouthWinds Tech Ltd
+license: Apache 2.0
+version: 1.23.2
+info: |
+  Apache NiFi 1.23.2
+images:
+  IMG_NIFI_AMD64: registry.southwinds.io/nifi/nifi:1.23.2:-amd64
+  IMG_NIFI_ARM64: registry.southwinds.io/nifi/nifi:1.23.2-arm64
+packages:
+  PKG_ART_X_K_AMD64: artr.gdn/x/linux/amd64/k:1.1
+  PKG_ART_X_K_ARM64: artr.gdn/x/linux/arm64/k:1.1
+  PKG_NIFI_INSTALLER: nifi/installer:1.23.2
